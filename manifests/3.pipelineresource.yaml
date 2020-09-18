@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1aplpha1
+kind: PipelineResource
+metadata:
+  name: qingjie-res
+  namespace: tekton-pipelines1
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/qingjie/tekton-demo
+  - name: revision
+    value: master

@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: testrun
+  namespace: tekton-pipelines1
+spec:
+  taskRef:
+    name: test
+  resources:
+    inputs:
+    - name: repo
+      resourceRef:
+        name: qingjie-res
