@@ -4,7 +4,7 @@ metadata:
   name: test
   namespace: tekton-pipelines1
 spec:
-  resource:
+  resources:
     inputs:
     - name: repo # /workspace/repo
       type: git
