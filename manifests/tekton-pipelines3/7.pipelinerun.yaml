@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: test-build-and-push-run
+  namespace: tekton-pipelines3
+spec:
+  serviceAccountName: build-sa 
+  pipelineRef:
+    name: test-build-and-push
+  resources:
+  - name: repo
+    resourceRef:
+      name: qingjie-res
