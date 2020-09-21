@@ -1,0 +1,13 @@
+# git repo 的分支名称为 tekton
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: git-pipeline-resource
+  namespace: tekton-pipelines4
+spec:
+  type: git
+  params:
+    - name: revision
+      value: tekton
+    - name: url
+      value: https://github.com/qingjie/tekton-demo.git

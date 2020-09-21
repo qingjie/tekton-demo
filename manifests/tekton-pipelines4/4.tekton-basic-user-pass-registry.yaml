@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tekton-basic-user-pass-registry
+  namespace: tekton-pipelines4
+  annotations:
+    tekton.dev/docker-0: https://index.docker.io/v1/
+type: kubernetes.io/basic-auth
+stringData:
+  username: <cleartext non-encoded>
+  password: <cleartext non-encoded>

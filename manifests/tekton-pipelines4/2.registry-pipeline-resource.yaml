@@ -1,0 +1,11 @@
+# 容器镜像仓库地址为 registry.cn-hangzhou.aliyuncs.com/haoshuwei/tekton-demo， 标签为 latest
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: registry-pipeline-resource
+  namespace: tekton-pipelines4
+spec:
+  type: image
+  params:
+    - name: url
+      value: https://hub.docker.com/repository/docker/qingjiezhao/tekton-test

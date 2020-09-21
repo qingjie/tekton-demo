@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tekton-git-and-registry
+  namespace: tekton-pipelines4
+secrets:
+  - name: tekton-basic-user-pass-git
+  - name: tekton-basic-user-pass-registry

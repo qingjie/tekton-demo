@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: build-app-task-run
+  namespace: tekton-pipelines4
+spec:
+  serviceAccount: tekton-git-and-registry
+  taskRef:
+    name: build-app
+  trigger:
+    type: manual
+  inputs:
+    resources:
+      - name: java-demo
+        resourceRef:
+          name: git-pipeline-resource
+    params:
+      - name: pathToDockerFile
+        value: Dockerfile
+      - name: pathToContext
+        value: /workspace/java-demo
+      - name: pathToYaml
+        value: /workspace/java-demo/deployment.yaml
+  outputs:
+    resources:
+      - name: builtImage
+        resourceRef:
+          name: registry-pipeline-resource

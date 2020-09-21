@@ -1,0 +1,49 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-app
+  namespace: tekton-pipelines4
+spec:
+  inputs:
+    resources:
+      - name: java-demo
+        type: git
+    params:
+      - name: pathToDockerFile
+        description: The path to the dockerfile to build
+        default: /workspace/java-demo/Dockerfile
+      - name: pathToContext
+        description: The build context used by Kaniko
+        default: /workspace/java-dem
+      - name: pathToYaml
+        description: The path to teh manifest to apply
+  outputs:
+    resources:
+      - name: builtImage
+        type: image
+  steps:
+    - name: build-mvn-package
+      image: registry.******.com/acs-sample/jenkins-slave-maven:3.3.9-jdk-8-alpine
+      workingDir: /workspace/java-demo
+      command:
+        - mvn
+      args:
+        - package
+        - -B
+        - -DskipTests
+    - name: build-docker-image
+      image: registry.******.com/acs-sample/jenkins-slave-kaniko:0.6.0
+      command:
+        - kaniko
+      args:
+        - --dockerfile=${inputs.params.pathToDockerFile}
+        - --destination=${outputs.resources.builtImage.url}
+        - --context=${inputs.params.pathToContext}
+    - name: deploy-app
+      image: registry.******.com/acs-sample/jenkins-slave-kubectl:1.11.5
+      command:
+        - kubectl
+      args:
+        - apply
+        - -f
+        - ${inputs.params.pathToYaml}
